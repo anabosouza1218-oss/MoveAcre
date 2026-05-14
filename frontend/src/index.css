@@ -1,0 +1,58 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap');
+
+:root {
+  --cor-preto: #0A0A0A;
+  --neutro: #F5F5F0;
+  --acao-principal: #C8F500;
+  --espaco-2: 4px;
+  --espaco-4: 16px;
+  --espaco-8: 32px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border-radius: 0 !important; /* Proibição: Sem bordas redondas */
+}
+
+body {
+  background-color: var(--cor-preto);
+  color: var(--neutro);
+  font-family: 'Barlow Condensed', sans-serif;
+  text-transform: uppercase; /* Case: Tudo Maiúsculo */
+}
+
+h1, h2, h3 {
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+button {
+  font-family: 'JetBrains Mono', monospace;
+  background-color: var(--acao-principal);
+  color: var(--cor-preto);
+  border: none;
+  padding: var(--espaco-4);
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+input, select, textarea {
+  background-color: #1a1a1a;
+  border: 1px solid var(--neutro);
+  color: var(--neutro);
+  padding: var(--espaco-2);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.label-tecnica {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--acao-principal);
+}

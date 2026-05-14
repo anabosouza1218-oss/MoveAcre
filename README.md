@@ -93,7 +93,7 @@ Projeto desenvolvido por alunos da **Uninorte — Rio Branco, Acre**:
 
 - Kelvin Lieberman — Desenvolvimento
 - Julio Souza — Desenvolvimento
-- Tomas Souza — Desenvolvimento
+- Ana Beatriz Souza — Desenvolvimento
 
 ---
 

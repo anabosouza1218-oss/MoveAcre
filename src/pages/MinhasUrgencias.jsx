@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@clerk/clerk-react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
-
-const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
+import { safeFetch } from "../mock/safeFetch.js";
 
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap');
@@ -264,7 +263,7 @@ export default function MinhasUrgencias() {
     const carregar = async () => {
       try {
         const token = await getToken();
-        const res = await fetch(`${API}/urgencias/me`, {
+        const res = await safeFetch("/urgencias/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();

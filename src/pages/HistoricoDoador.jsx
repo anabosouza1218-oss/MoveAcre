@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth, useUser } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
 import Logo from "../components/Logo";
+import { safeFetch } from "../mock/safeFetch.js";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 const nivelCor = { OURO:"#FFD700", PRATA:"#C0C0C0", BRONZE:"#CD7F32" };
@@ -20,8 +21,8 @@ export default function HistoricoDoador() {
       const token = await getToken();
       const headers = { Authorization: `Bearer ${token}` };
       const [rPerfil, rDoacoes] = await Promise.all([
-        fetch(`${API}/doadores/me?email=${email}`, { headers }),
-        fetch(`${API}/doadores/historico-doacoes?email=${email}`, { headers }),
+        safeFetch(`/doadores/me?email=${email}`, { headers }),
+        safeFetch(`/doadores/historico-doacoes?email=${email}`, { headers }),
       ]);
       const jPerfil  = await rPerfil.json();
       const jDoacoes = await rDoacoes.json();

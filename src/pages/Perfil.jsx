@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth, useUser, useClerk } from "@clerk/clerk-react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import Logo from "../components/Logo";
+import { safeFetch } from "../mock/safeFetch.js";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
@@ -270,7 +271,7 @@ export default function Perfil() {
         const token = await getToken();
         const email = user?.primaryEmailAddress?.emailAddress;
         if (!email) return;
-        const res = await fetch(`${API}/doadores/me?email=${email}`, {
+        const res = await safeFetch(`/doadores/me?email=${email}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         const json = await res.json();
@@ -290,7 +291,7 @@ export default function Perfil() {
       try {
         const token = await getToken();
         const email = user?.primaryEmailAddress?.emailAddress;
-        await fetch(`${API}/doadores/desativar`, {
+        await safeFetch("/doadores/desativar", {
           method: "POST",
           headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
           body: JSON.stringify({ email }),
@@ -312,7 +313,7 @@ export default function Perfil() {
       formData.append("email", email);
       formData.append("data_doacao", dataDoacao);
       formData.append("atestado", arquivo);
-      const res = await fetch(`${API}/doadores/declarar-doacao`, {
+      const res = await safeFetch("/doadores/declarar-doacao", {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
         body: formData,

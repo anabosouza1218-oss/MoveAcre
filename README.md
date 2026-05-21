@@ -1,16 +1,51 @@
-# React + Vite
+# Moveacre — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Plataforma de doação de sangue para o estado do Acre. Conecta doadores e receptores em situações de urgência.
 
-Currently, two official plugins are available:
+## Sobre o projeto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Sistema fullstack com:
+- **Frontend**: React + Vite + React Router
+- **Backend**: Python (Flask) + SQLite — repositório separado
+- **Autenticação**: Clerk
+- **Deploy**: Railway (backend) + GitHub Pages (frontend demo)
 
-## React Compiler
+## Modo demo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Quando o backend está offline, o frontend ativa automaticamente um modo de demonstração com dados fictícios. Isso permite visualizar a interface completa sem depender do servidor.
 
-## Expanding the ESLint configuration
+## Funcionalidades
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Cadastro e login via Clerk
+- Dashboard do doador/receptor
+- Abertura e acompanhamento de pedidos de sangue urgentes
+- Declaração de doações com upload de atestado
+- Histórico de doações com sistema de níveis (Bronze → Prata → Ouro)
+- Painel administrativo completo (aprovação de pedidos, gestão de usuários, notificações)
+
+## Rodando localmente
+
+```bash
+npm install
+npm run dev
+```
+
+Crie um `.env.local` com:
+
+```
+VITE_CLERK_PUBLISHABLE_KEY=sua_chave_clerk
+VITE_API_URL=http://localhost:5000
+```
+
+## Build para GitHub Pages
+
+```bash
+VITE_BASE_PATH=/nome-do-repo npm run build
+```
+
+Ou instale `gh-pages` e rode:
+
+```bash
+npm install --save-dev gh-pages
+npm run deploy
+```

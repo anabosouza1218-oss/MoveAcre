@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@clerk/clerk-react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import Logo from "../components/Logo";
+import { safeFetch } from "../mock/safeFetch.js";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 const TIPOS = ["A+","A-","B+","B-","AB+","AB-","O+","O-"];
 
 export default function EditarPedido() {
@@ -21,7 +21,7 @@ export default function EditarPedido() {
   useEffect(() => {
     const carregar = async () => {
       const token = await getToken();
-      const res = await fetch(`${API}/urgencias/me`, { headers: { Authorization:`Bearer ${token}` } });
+      const res = await safeFetch("/urgencias/me", { headers: { Authorization:`Bearer ${token}` } });
       const j = await res.json();
       if (j.success) {
         const pedido = j.data.find(p => String(p.id) === String(id));
@@ -41,7 +41,7 @@ export default function EditarPedido() {
       Object.entries(form).forEach(([k,v]) => formData.append(k, v));
       if (e.target.laudo?.files[0]) formData.append("laudo", e.target.laudo.files[0]);
 
-      const res = await fetch(`${API}/urgencias/${id}`, {
+      const res = await safeFetch(`/urgencias/${id}`, {
         method: "PUT",
         headers: { Authorization:`Bearer ${token}` },
         body: formData,
@@ -55,7 +55,7 @@ export default function EditarPedido() {
   const handleDesativar = async () => {
     if (!motivoDesativar.trim()) { alert("Informe o motivo."); return; }
     const token = await getToken();
-    const res = await fetch(`${API}/urgencias/${id}/desativar`, {
+    const res = await safeFetch(`/urgencias/${id}/desativar`, {
       method: "POST",
       headers: { Authorization:`Bearer ${token}`, "Content-Type":"application/json" },
       body: JSON.stringify({ motivo: motivoDesativar }),

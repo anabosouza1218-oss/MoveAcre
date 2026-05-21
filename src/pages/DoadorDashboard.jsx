@@ -3,8 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Logo from "../components/Logo";
 import { useIsAdmin } from "../hooks/useIsAdmin";
-
-const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
+import { safeFetch } from "../mock/safeFetch.js";
 
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap');
@@ -212,11 +211,11 @@ export default function DoadorDashboard() {
         try {
           const token = await getToken();
 
-          const isAdminRes = await fetch(`${API}/auth/is-admin`, { headers: { Authorization: `Bearer ${token}` } });
+          const isAdminRes = await safeFetch("/auth/is-admin", { headers: { Authorization: `Bearer ${token}` } });
           const isAdminJson = await isAdminRes.json();
           if (isAdminJson.is_admin) return;
 
-          const res = await fetch(`${API}/doadores/me`, {
+          const res = await safeFetch("/doadores/me", {
             headers: { Authorization: `Bearer ${token}` }
           });
           const json = await res.json();
@@ -252,7 +251,7 @@ export default function DoadorDashboard() {
     const reativar = async () => {
       const token = await getToken();
       const email = user?.primaryEmailAddress?.emailAddress;
-      const res = await fetch(`${API}/doadores/reativar`, {
+      const res = await safeFetch("/doadores/reativar", {
         method: "POST",
         headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
         body: JSON.stringify({ email }),

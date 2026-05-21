@@ -8,7 +8,8 @@
         "build": "vite build",
         "lint": "eslint .",
         "preview": "vite preview",
-        "start": "serve -s dist -l $PORT"
+        "start": "serve -s dist -l $PORT",
+        "deploy": "vite build && gh-pages -d dist"
     },
     "dependencies": {
         "@clerk/clerk-react": "^5.61.6",
